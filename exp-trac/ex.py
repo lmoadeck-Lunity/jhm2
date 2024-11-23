@@ -16,7 +16,11 @@ def write_to_csv(data : 'pd.DataFrame'):
 
 def read_from_csv():
     global trac_data
-    trac_data = pd.read_csv('data.csv')
+    try:
+        trac_data = pd.read_csv('data.csv')
+    except FileNotFoundError:
+        print('File not found')
+        open('data.csv', 'w').close()
 
 def add_data(data : dict):
     global trac_data
@@ -43,7 +47,10 @@ def add_expense():
     prop = input("Enter the property of your expense: ")
     amount = input("Enter the amount: ")
     date = input("Enter the date: (DD/MM/YYYY): ")
-    date = datetime.datetime.strptime(date, "%d/%m/%Y").date()
+    if date == '':
+        date = datetime.datetime.now().date()
+    else:
+        date = datetime.datetime.strptime(date, "%d/%m/%Y").date()
     data = {'type': type_, 'property': prop, 'amount': amount, 'date': date}
     # print(data)
     add_data(data)
