@@ -55,7 +55,45 @@ def add_expense():
     # print(data)
     add_data(data)
     # print(trac_data)
+def del_expense():
+    print(trac_data)
+    index = input("Enter the index of the expense you would like to delete: ")
+    trac_data.drop(index, inplace=True)
+    print("Expense deleted")
+    return
 
+def edit_expense():
+    print(trac_data)
+    index = input("Enter the index of the expense you would like to edit: ")
+    type_ = input("Enter the type of expense: (Expense, Income/E,I): ")
+    if type_.lower() not in ['expense', 'income', 'e', 'i'] and type_ != '':
+        print("Please enter a valid type")
+        return
+    elif type_.lower() == '':
+        type_ = trac_data.at[index, 'type']
+    if type_.lower() in ['e', 'expense']:
+        type_ = 'Expense'
+    elif type_.lower() in ['i', 'income']:
+        type_ = 'Income'
+    
+
+    prop = input("Enter the property of your expense: ")
+    if prop == '':
+        prop = trac_data.at[index, 'property']
+    amount = input("Enter the amount: ")
+    if amount == '':
+        amount = trac_data.at[index, 'amount']
+
+    date = input("Enter the date: (DD/MM/YYYY): ")
+    if date == '':
+        date = trac_data.at[index, 'date']
+    else:
+        date = datetime.datetime.strptime(date, "%d/%m/%Y").date()
+    trac_data.at[index, 'property'] = prop
+    trac_data.at[index, 'amount'] = amount
+    trac_data.at[index, 'date'] = date
+    print("Expense edited")
+    return
 def get_expenses():
     read_from_csv()
     # date = input("Enter the date: (DD/MM/YYYY): ")
