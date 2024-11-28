@@ -115,12 +115,16 @@ def get_expenses():
 def main(userin : int = 0):
     try:
         if userin == 0:
-            userin = int(input("Welcome to Expense Tracker! What would you like to do? \n1. Add Expense \n2. Get Expenses \n3. Exit\n"))
+            userin = int(input("Welcome to Expense Tracker! What would you like to do? \n1. Add Expense \n2. Get Expenses \n3. Edit Expense \n4. Delete Expense \n5. Exit\n"))
         if userin == 1:
             add_expense()
         elif userin == 2:
             get_expenses()
         elif userin == 3:
+            edit_expense()
+        elif userin == 4:
+            del_expense()
+        elif userin == 5:
             return 'exit'
     except ValueError:
         print("Please enter a valid number")
@@ -133,7 +137,7 @@ if __name__ == '__main__':
     numin = 0
     while True:
         if numin == 0:
-            numin = int(input("Welcome to Expense Tracker! What would you like to do? \n1. Add Expense \n2. Get Expenses \n3. Exit\n"))
+            numin = int(input("Welcome to Expense Tracker! What would you like to do? \n1. Add Expense \n2. Get Expenses \n3. Edit Expense \n4. Delete Expense \n5. Exit\n"))
         a = main(numin)
         if a == 'exit':
             break
