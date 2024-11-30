@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import py_dotenv
 import os
 
-py_dotenv.read_dotenv()
+py_dotenv.read_dotenv("./.env")
 
 # api_key = 'd' # API KEY HERE, TODO: REMOVE
 api_key = os.getenv('WEATHER_API_KEY')
@@ -19,6 +19,6 @@ data = response.json()
 temperacture = data['current']['temp_c']
 uv = data['current']['uv']
 humid = data['current']['humidity']
-print(f"Temperacture: {temperacture}°C\nUV: {uv}\nHumidity: {humid}%")
-plt.bar(['Temperacture', 'UV', 'Humidity'], [temperacture, uv, humid])
+print(f"Temperature: {temperacture}°C\nUV: {uv}\nHumidity: {humid}%")
+plt.bar(['Temperature', 'UV', 'Humidity'], [temperacture, uv, humid])
 plt.show()
