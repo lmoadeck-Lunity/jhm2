@@ -47,10 +47,7 @@ def add_expense():
     prop = input("Enter the property of your expense: ")
     amount = input("Enter the amount: ")
     date = input("Enter the date: (DD/MM/YYYY): ")
-    if date == '':
-        date = datetime.datetime.now().date()
-    else:
-        date = datetime.datetime.strptime(date, "%d/%m/%Y").date()
+    date = datetime.datetime.strptime(date, "%d/%m/%Y").date() if date != '' else datetime.datetime.now().date()
     data = {'type': type_, 'property': prop, 'amount': amount, 'date': date}
     # print(data)
     add_data(data)
@@ -65,6 +62,7 @@ def del_expense():
 def edit_expense():
     print(trac_data)
     index = input("Enter the index of the expense you would like to edit: ")
+    print(trac_data.at[index])
     type_ = input("Enter the type of expense: (Expense, Income/E,I): ")
     if type_.lower() not in ['expense', 'income', 'e', 'i'] and type_ != '':
         print("Please enter a valid type")
@@ -77,12 +75,12 @@ def edit_expense():
         type_ = 'Income'
     
 
-    prop = input("Enter the property of your expense: ")
-    if prop == '':
-        prop = trac_data.at[index, 'property']
-    amount = input("Enter the amount: ")
-    if amount == '':
-        amount = trac_data.at[index, 'amount']
+    prop = input("Enter the property of your expense: ") or trac_data.at[index, 'property']
+    # if prop == '':
+        # prop = trac_data.at[index, 'property']
+    amount = input("Enter the amount: ") or trac_data.at[index, 'amount']
+    # if amount == '':
+        # amount = trac_data.at[index, 'amount']
 
     date = input("Enter the date: (DD/MM/YYYY): ")
     if date == '':
@@ -145,7 +143,7 @@ if __name__ == '__main__':
         if cont.lower() == 'n' or cont.lower() == '':
             break
         elif cont.lower() == 'y':
-            te = input('Would you like to start over? (Y/N): ')
+            te = input('Would you like to  (Y/N): ')
             if te.lower() == 'y':
                 numin = 0
                 write_to_csv(trac_data)
