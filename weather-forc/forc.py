@@ -1,6 +1,12 @@
 import requests
 import matplotlib.pyplot as plt
-api_key = 'd' # API KEY HERE, TODO: REMOVE
+import py_dotenv
+import os
+
+py_dotenv.read_dotenv()
+
+# api_key = 'd' # API KEY HERE, TODO: REMOVE
+api_key = os.getenv('WEATHER_API_KEY')
 
 headers = {
     'Content-Type': 'application/json',
