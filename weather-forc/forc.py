@@ -1,6 +1,6 @@
 import requests
 import matplotlib.pyplot as plt
-api_key = '4fe58730ec324f36b3232041243011' # API KEY HERE, TODO: REMOVE
+api_key = 'd' # API KEY HERE, TODO: REMOVE
 
 headers = {
     'Content-Type': 'application/json',
