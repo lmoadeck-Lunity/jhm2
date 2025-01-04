@@ -2,22 +2,25 @@ w,h = map(int, input("Please enter the amount of players and the amount of split
 connections = [[0 for i in range(w-1)] for j in range(h)]
 turns = int(input("Please enter the turns of the players. (nT)"))
 # prize_enable = input("Would you like to enable prizes? (Y/N)") == "Y" or False
+DBG = False
 prizes = [""] * w
 def print_table(debug=False):
-    print("  ", end="")
+    print("        ", end="")
     for i in range(w):
-        print(f"\tP{i+1}\t", end="")
+        print(f"P{i+1}", end=f"{' '*(len(str((w-1)*h))+2)}")
     print()
+    c = 0
     for i in range(h):
-        print(f"Split{i+1} ", end="")
+        print(f"Split{str(i+1).zfill(len(str(h)))} ", end="")
         for j in range(w-1):
+            c+=1
             print("|", end=" ")
-            print("---" if connections[i][j] == 1 else "   ", end=" ")
+            print(f" {"-"*len(str((w-1)*h))}" if connections[i][j] == 1 else f" {str(c).zfill(len(str((w-1)*h)))}", end=" ")
             
         print("|",connections[i] if debug else "")
-    if prize_enable:
-        print("Prizes: ", prizes)
-print_table(True)
+    # if prize_enable:
+    #     print("Prizes: ", prizes)
+print_table(DBG)
 turn = 1
 while True:
     
@@ -25,16 +28,24 @@ while True:
     if turn == 0:
         turns -= 1
         turn = 1
-    print(f"Player {turn} please enter the split and the position of the split. (nY nX)\n You have {turns} turns left. Should you exit, please enter '0 0'.")
+    print(f"Player {turn} please enter the split and the position of the split. (NumberOfSplit)\n You have {turns} turns left. Should you exit, please enter '0 0'.")
     try:
-        split, pos = map(int, input().split())
+        # nos = 0
+        # pos, split = map(int, input().split())# Y,X
+        nos = int(input()) - 1
+        split = nos // (w-1) + 1
+        pos = nos % (w-1) + 1
+        # split = nos // w
+        # pos = nos % w + 1
+        print(f"X: {pos}, Y: {split}")
     except ValueError:
         print("Invalid input.")
         continue
     if split > h or pos > w-1:
         print("Invalid split or position.")
         continue
-    if split == 0 and pos == 0:
+
+    if nos == -999 or (split == 0 and pos == 0):
         break
     #check if the connection already exists, check left and right, if xpos is 0, check right, if xpos is w-1ONLY, check left ONLY
     if pos != 0 and pos != w-1:
@@ -54,11 +65,11 @@ while True:
         continue
     turn +=1
     connections[split-1][pos-1] = 1
-    print_table(True)
+    print_table(DBG)
 
     if turns == 0:
         break
-print_table(True)
+print_table(DBG)
 def traverse_ghost_leg(grid, start):
     position = start
     for rung in grid:
