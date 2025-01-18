@@ -28,7 +28,7 @@ while True:
     if turn == 0:
         turns -= 1
         turn = 1
-    print(f"Player {turn} please enter the split and the position of the split. (NumberOfSplit)\n You have {turns} turns left. Should you exit, please enter '0 0'.")
+    print(f"Player {turn} please enter the number of the split. (NumberOfSplit)\n You have {turns} turns left. Should you exit, please enter '-999'.")
     try:
         # nos = 0
         # pos, split = map(int, input().split())# Y,X
